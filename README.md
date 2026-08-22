@@ -51,6 +51,36 @@ All photography is Unsplash, served from `images.unsplash.com` through
 placeholder). Nothing is hardcoded in a component — every photo is declared in
 `src/config/images.ts` with its alt text and photographer credit.
 
+### Art direction — show the work, not the client's industry
+
+This is an agency site, so the imagery is about what the studio *makes*. A
+photograph of food on a restaurant case study says "we photograph restaurants";
+a screen showing the site we built says "we build websites".
+
+| Slot | Subject |
+| --- | --- |
+| Project covers | Interfaces, devices, design craft — the deliverable |
+| About | Studio, type specimens, colour systems |
+| Industries | Sector imagery *is* correct here — the section is about sectors served |
+
+### The grade
+
+Raw stock photography on a near-black editorial page is what makes an agency
+site look templated: every frame arrives with its own white balance, saturation
+and contrast. `<Photo>` pushes all of them through one duotone — desaturate,
+then tint toward the slot's accent — so unrelated photographs read as a single
+art-directed body of work. Project covers ease back toward colour on hover.
+
+```tsx
+<Photo treatment="duotone" />  // desaturate + accent tint (project covers)
+<Photo treatment="grade" />    // desaturate only, no tint (studio imagery)
+<Photo treatment="none" />     // untouched (real client screenshots)
+```
+
+The grade is set through CSS custom properties declared as classes, not inline
+styles — an inline filter outranks the hover rule and silently kills the
+colour-return.
+
 ### ⚠️ Verify the photo IDs before launch
 
 The photo IDs were authored in a sandbox where `images.unsplash.com` is

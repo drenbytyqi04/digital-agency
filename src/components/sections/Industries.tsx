@@ -78,8 +78,15 @@ export function Industries() {
                   placeholder="blur"
                   blurDataURL={blurFrom("#0a0a0b")}
                   className="object-cover"
+                  style={{ filter: "grayscale(1) contrast(1.1) brightness(0.7)" }}
                 />
-                <span className="absolute inset-0 bg-void/25" />
+                {/* Same duotone logic as <Photo>: tint the sector shot toward
+                    the industry's own accent so it belongs to the palette. */}
+                <span
+                  className="absolute inset-0 mix-blend-color opacity-70"
+                  style={{ background: industries[active!].accent }}
+                />
+                <span className="absolute inset-0 bg-void/20" />
               </motion.div>
             )}
           </AnimatePresence>

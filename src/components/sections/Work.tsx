@@ -44,6 +44,7 @@ export function Work({ limit, showHead = true }: { limit?: number; showHead?: bo
                         photo={projectPhotos[project.slug]}
                         fallback={project.art}
                         priority={i === 0}
+                        interactive
                         sizes={
                           i % 3 === 0
                             ? "(max-width: 768px) 100vw, 90vw"

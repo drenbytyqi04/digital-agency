@@ -2,6 +2,20 @@
  * ─────────────────────────────────────────────────────────────
  *  UNSPLASH PHOTOGRAPHY
  * ─────────────────────────────────────────────────────────────
+ *  ART DIRECTION — this is an AGENCY site, so the imagery shows
+ *  the WORK, not the client's industry. A photograph of food on a
+ *  restaurant case study says "we photograph restaurants"; a
+ *  screen showing the site we built says "we build websites".
+ *
+ *    project covers → interfaces, devices, design craft
+ *    about          → studio, type specimens, colour systems
+ *    industries     → sector imagery IS correct here, because the
+ *                     section is explicitly about sectors served
+ *
+ *  Every photo is rendered through <Photo>, which applies a shared
+ *  duotone grade so stock photography sits inside the palette and
+ *  reads art-directed rather than dropped in.
+ * ─────────────────────────────────────────────────────────────
  *  Every photo on the site is declared here — nothing is hardcoded
  *  in a component. Each entry is an Unsplash photo ID plus the alt
  *  text and photographer credit that travel with it.
@@ -54,53 +68,53 @@ export function blurFrom(hex: string) {
  * ────────────────────────────────────────────────────────── */
 export const projectPhotos: Record<string, Photo> = {
   "sample-restaurant": {
-    id: "photo-1517248135467-4c7edcad34c4",
-    alt: "Warmly lit restaurant dining room with set tables",
-    credit: "Jason Leung on Unsplash",
+    id: "photo-1467232004584-a241de8bcf5d",
+    alt: "Website design for a restaurant displayed on a laptop screen",
+    credit: "Igor Miske on Unsplash",
   },
   "sample-travel": {
-    id: "photo-1488646953014-85cb44e25828",
-    alt: "Traveller looking out over a mountain landscape at sunrise",
-    credit: "Simon Migaj on Unsplash",
+    id: "photo-1512941937669-90a1b58e7e9c",
+    alt: "Travel booking interface open on a phone and laptop",
+    credit: "Windows on Unsplash",
   },
   "sample-real-estate": {
-    id: "photo-1512917774080-9991f1c4c750",
-    alt: "Modern residential property exterior at dusk",
-    credit: "Avi Werde on Unsplash",
+    id: "photo-1497215728101-856f4ea42174",
+    alt: "Property listing platform on a desktop display",
+    credit: "Nastuh Abootalebi on Unsplash",
   },
   "sample-ecommerce": {
-    id: "photo-1556228720-195a672e8a03",
-    alt: "Ceramic homeware arranged on a neutral surface",
-    credit: "Sarah Dorweiler on Unsplash",
+    id: "photo-1523206489230-c012c64b2b48",
+    alt: "Online store product page shown on a screen",
+    credit: "Roberto Cortese on Unsplash",
   },
   "sample-construction": {
-    id: "photo-1541888946425-d81bb19240f5",
-    alt: "Construction site with structural steelwork against the sky",
-    credit: "Etienne Girardet on Unsplash",
+    id: "photo-1503387837-b154d5074bd2",
+    alt: "Architectural drawings and plans laid out on a desk",
+    credit: "Daniel McCullough on Unsplash",
   },
   "sample-professional": {
-    id: "photo-1497366216548-37526070297c",
-    alt: "Quiet professional office interior with meeting space",
-    credit: "Nastuh Abootalebi on Unsplash",
+    id: "photo-1531403009284-440f080d1e12",
+    alt: "Wireframes and interface sketches across a working desk",
+    credit: "Kelly Sikkema on Unsplash",
   },
 };
 
 /* ── ABOUT ───────────────────────────────────────────────── */
 export const aboutPhotos: Record<"team" | "workspace" | "process", Photo> = {
   team: {
-    id: "photo-1522071820081-009f0129c71c",
-    alt: "Small team collaborating around a table",
-    credit: "Annie Spratt on Unsplash",
+    id: "photo-1600880292089-90a7e086ee0c",
+    alt: "Designers reviewing layouts together at a studio desk",
+    credit: "Amy Hirschi on Unsplash",
   },
   workspace: {
-    id: "photo-1497366811353-6870744d04b2",
-    alt: "Studio workspace with desks and natural light",
-    credit: "Nastuh Abootalebi on Unsplash",
+    id: "photo-1481487196290-c152efe083f5",
+    alt: "Studio workspace with colour swatches and type specimens",
+    credit: "Mika Baumeister on Unsplash",
   },
   process: {
-    id: "photo-1531403009284-440f080d1e12",
-    alt: "Design sketches and wireframes spread across a desk",
-    credit: "Kelly Sikkema on Unsplash",
+    id: "photo-1558655146-d09347e92766",
+    alt: "Colour palette and brand system explorations on paper",
+    credit: "Balázs Kétyi on Unsplash",
   },
 };
 
