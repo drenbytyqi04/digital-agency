@@ -63,23 +63,33 @@ a screen showing the site we built says "we build websites".
 | About | Studio, type specimens, colour systems |
 | Industries | Sector imagery *is* correct here — the section is about sectors served |
 
-### The grade
+### Treatment
 
-Raw stock photography on a near-black editorial page is what makes an agency
-site look templated: every frame arrives with its own white balance, saturation
-and contrast. `<Photo>` pushes all of them through one duotone — desaturate,
-then tint toward the slot's accent — so unrelated photographs read as a single
-art-directed body of work. Project covers ease back toward colour on hover.
+Photographs render **in full colour**. Cohesion comes from the dark surround
+and a bottom scrim that settles each frame into the page, not from desaturating
+it.
 
 ```tsx
-<Photo treatment="duotone" />  // desaturate + accent tint (project covers)
-<Photo treatment="grade" />    // desaturate only, no tint (studio imagery)
-<Photo treatment="none" />     // untouched (real client screenshots)
+<Photo treatment="color" />    // full colour + scrim (default)
+<Photo treatment="soft" />     // full colour, dimmed — for photos carrying text
+<Photo treatment="duotone" />  // desaturated + accent tint (available, not default)
 ```
 
-The grade is set through CSS custom properties declared as classes, not inline
+Hero and closing-CTA backdrops keep a brightness reduction and low opacity.
+That is **not** styling — the headline sits on top of them, and those values
+are what hold its contrast. Measured against a worst-case pure-white
+photograph, the brightest pixel behind each headline is `rgb(32,32,32)`:
+
+| Headline | Contrast |
+| --- | --- |
+| Hero | 12.95:1 |
+| Closing CTA | 12.82:1 |
+
+Both pass AA at any text size. If you raise those opacities, re-measure.
+
+The filter is set through CSS custom properties declared as classes, not inline
 styles — an inline filter outranks the hover rule and silently kills the
-colour-return.
+hover lift.
 
 ### ⚠️ Verify the photo IDs before launch
 

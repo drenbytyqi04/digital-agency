@@ -6,22 +6,18 @@ import { unsplashUrl, blurFrom, type Photo as PhotoMeta } from "@/config/images"
 import { ProjectArt } from "./ProjectArt";
 import { cn } from "@/lib/utils";
 
-type Treatment = "duotone" | "grade" | "none";
+type Treatment = "color" | "soft" | "duotone";
 
 /**
- * Unsplash photo with a brand grade and a generated-art fallback.
+ * Unsplash photo with a generated-art fallback.
  *
- * THE GRADE IS THE POINT. Dropping raw stock photography onto a
- * near-black editorial page is what makes an agency site look
- * templated: every frame arrives with its own white balance, its own
- * saturation, its own idea of contrast. Pushing all of them through
- * one duotone — desaturate, then tint toward the project's accent —
- * makes a set of unrelated photographs read as a single art-directed
- * body of work sitting inside the palette.
+ * Photographs render IN FULL COLOUR by default. Cohesion comes from the
+ * dark surround and a bottom scrim that settles each frame into the
+ * page, not from stripping the colour out of it.
  *
- *   duotone  desaturated + accent tint, colour returns on hover
- *   grade    desaturated + darkened only, no tint (neutral contexts)
- *   none     untouched (real client screenshots, once they exist)
+ *   color    full colour + bottom scrim (default — content photography)
+ *   soft     full colour, slightly dimmed, for photos carrying text
+ *   duotone  desaturated + accent tint (kept, no longer the default)
  *
  * If the remote image fails — a stale photo ID, an offline build, a
  * blocked CDN — it renders the same gradient artwork the site used
@@ -33,7 +29,7 @@ export function Photo({
   fallback,
   sizes,
   priority = false,
-  treatment = "duotone",
+  treatment = "color",
   interactive = false,
   className,
 }: {
@@ -72,18 +68,18 @@ export function Photo({
    * hover variant, which Tailwind emits later in the sheet, actually win.
    */
   const gradeVars =
-    treatment === "none"
-      ? ""
-      : treatment === "grade"
-        ? "[--ph-gray:1] [--ph-bright:0.72] [--ph-contrast:1.08]"
-        : "[--ph-gray:1] [--ph-bright:0.66] [--ph-contrast:1.12]";
+    treatment === "color"
+      ? "[--ph-gray:0] [--ph-bright:1] [--ph-contrast:1] [--ph-sat:1.05]"
+      : treatment === "soft"
+        ? "[--ph-gray:0] [--ph-bright:0.82] [--ph-contrast:1.04] [--ph-sat:1.05]"
+        : "[--ph-gray:1] [--ph-bright:0.66] [--ph-contrast:1.12] [--ph-sat:1]";
 
   return (
     <div
       className={cn(
         "group/photo relative h-full w-full overflow-hidden bg-surface",
         gradeVars,
-        interactive && treatment !== "none" && "hover:[--ph-gray:0.25] hover:[--ph-bright:0.88]",
+        interactive && "hover:[--ph-bright:1.06] hover:[--ph-sat:1.12]",
         className
       )}
     >
@@ -99,14 +95,13 @@ export function Photo({
         onError={() => setFailed(true)}
         className={cn(
           "object-cover transition-[filter,transform] duration-700 ease-[cubic-bezier(0.16,1,0.3,1)]",
-          treatment !== "none" &&
-            "[filter:grayscale(var(--ph-gray))_contrast(var(--ph-contrast))_brightness(var(--ph-bright))]"
+          "[filter:grayscale(var(--ph-gray))_contrast(var(--ph-contrast))_brightness(var(--ph-bright))_saturate(var(--ph-sat))]"
         )}
       />
 
       {treatment === "duotone" && (
         <>
-          {/* Accent tint — carries the brand colour into the midtones */}
+          {/* Accent tint — only in the duotone treatment */}
           <span
             aria-hidden="true"
             className={cn(
@@ -128,11 +123,15 @@ export function Photo({
         </>
       )}
 
-      {treatment === "grade" && (
+      {/* Bottom scrim. Settles a colour photograph into the dark page and
+          keeps any caption below it legible, without touching the hue. */}
+      {treatment !== "duotone" && (
         <span
           aria-hidden="true"
           className="pointer-events-none absolute inset-0"
-          style={{ background: `linear-gradient(to top, ${fallback.to}bb, transparent 60%)` }}
+          style={{
+            background: `linear-gradient(to top, ${fallback.to}${treatment === "soft" ? "cc" : "99"}, transparent ${treatment === "soft" ? "55%" : "72%"})`,
+          }}
         />
       )}
     </div>

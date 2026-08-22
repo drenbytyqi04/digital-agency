@@ -46,7 +46,6 @@ export function About({ showHead = true }: { showHead?: boolean }) {
                   photo={aboutPhotos.team}
                   fallback={{ from: "#12141a", to: "#050505", accent: "#4d7cfe" }}
                   sizes="(max-width: 1024px) 100vw, 45vw"
-                  treatment="grade"
                 />
               </div>
               <div className="aspect-square overflow-hidden rounded-xl border border-line">
@@ -54,7 +53,6 @@ export function About({ showHead = true }: { showHead?: boolean }) {
                   photo={aboutPhotos.workspace}
                   fallback={{ from: "#14120f", to: "#050505", accent: "#8b5cf6" }}
                   sizes="(max-width: 1024px) 50vw, 22vw"
-                  treatment="grade"
                 />
               </div>
               <div className="aspect-square overflow-hidden rounded-xl border border-line">
@@ -62,7 +60,6 @@ export function About({ showHead = true }: { showHead?: boolean }) {
                   photo={aboutPhotos.process}
                   fallback={{ from: "#101418", to: "#050505", accent: "#6EE7B7" }}
                   sizes="(max-width: 1024px) 50vw, 22vw"
-                  treatment="grade"
                 />
               </div>
             </div>

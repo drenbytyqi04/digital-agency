@@ -83,9 +83,8 @@ export function Services({ showHead = true }: { showHead?: boolean }) {
                           id={servicePhotos[service.slug].id}
                           width={480}
                           sizes="176px"
-                          className="object-cover [filter:grayscale(1)_contrast(1.1)_brightness(0.75)]"
+                          className="object-cover [filter:saturate(1.1)]"
                         />
-                        <span className="absolute inset-0 bg-gradient-to-t from-volt/30 to-viol/20 mix-blend-color" />
                       </motion.span>
                     )}
                   </AnimatePresence>

@@ -74,15 +74,14 @@ export function Industries() {
                   id={activePhoto.id}
                   width={640}
                   sizes="320px"
-                  className="object-cover [filter:grayscale(1)_contrast(1.1)_brightness(0.7)]"
+                  className="object-cover [filter:saturate(1.1)]"
                 />
-                {/* Same duotone logic as <Photo>: tint the sector shot toward
-                    the industry's own accent so it belongs to the palette. */}
+                {/* A thin accent edge instead of a colour-killing tint —
+                    the photograph keeps its own colour. */}
                 <span
-                  className="absolute inset-0 mix-blend-color opacity-70"
-                  style={{ background: industries[active!].accent }}
+                  className="absolute inset-0 rounded-xl ring-1 ring-inset"
+                  style={{ boxShadow: `inset 0 0 0 1px ${industries[active!].accent}55` }}
                 />
-                <span className="absolute inset-0 bg-void/20" />
               </motion.div>
             )}
           </AnimatePresence>

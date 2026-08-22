@@ -54,7 +54,7 @@ export function Hero() {
           width={2000}
           priority
           sizes="100vw"
-          className="object-cover opacity-[0.24] [filter:grayscale(1)_contrast(1.15)_brightness(0.5)]"
+          className="object-cover opacity-[0.32] [filter:brightness(0.62)_saturate(1.1)]"
         />
         <div className="absolute inset-0 bg-gradient-to-b from-void/75 via-void/45 to-void" />
         <motion.div className="grid-lines absolute inset-0 opacity-[0.55]" style={{ x: px, y: py }} />

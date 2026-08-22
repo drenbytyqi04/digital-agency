@@ -19,7 +19,7 @@ export function StartProject() {
           id={sectionPhotos.cta.id}
           width={2000}
           sizes="100vw"
-          className="object-cover opacity-[0.22] [filter:grayscale(1)_contrast(1.2)_brightness(0.55)]"
+          className="object-cover opacity-[0.30] [filter:brightness(0.65)_saturate(1.1)]"
         />
         <div className="absolute inset-0 bg-gradient-to-b from-void via-void/60 to-void" />
         <div className="grid-lines absolute inset-0 opacity-30" />

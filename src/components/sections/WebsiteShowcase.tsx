@@ -79,7 +79,7 @@ export function WebsiteShowcase() {
                   id={sectionPhotos.showcase.id}
                   width={1200}
                   sizes="(max-width: 768px) 100vw, 60vw"
-                  className="rounded-md object-cover opacity-30 [filter:grayscale(1)_contrast(1.1)_brightness(0.6)]"
+                  className="rounded-md object-cover opacity-45 [filter:brightness(0.8)_saturate(1.05)]"
                 />
                 <span className="absolute inset-0 rounded-md bg-gradient-to-r from-void via-void/70 to-transparent" />
                 <span className="accent-gradient relative h-1 w-12 rounded-full" />
