@@ -1,0 +1,204 @@
+@import "tailwindcss";
+
+/* ─────────────────────────────────────────────────────────────
+   DESIGN TOKENS
+   Dark-committed surface. The brief specifies a single dark
+   theme, so tokens are defined once on :root rather than being
+   swapped per colour scheme.
+   ───────────────────────────────────────────────────────────── */
+@theme {
+  /* Surfaces — a near-black base with three lifted planes */
+  --color-void: #050505;
+  --color-surface: #0a0a0b;
+  --color-raised: #101012;
+  --color-line: #1c1c20;
+  --color-line-strong: #2a2a30;
+
+  /* Ink */
+  --color-ink: #ededE8;
+  --color-ink-dim: #a1a1a0;
+  /* 4.95:1 on --color-void. Carries 11px eyebrow labels and metadata,
+     which is normal-size text, so it must clear AA 4.5:1 — the earlier
+     #6b6b6e measured 3.84:1 and failed. */
+  --color-ink-faint: #7d7d80;
+
+  /* Accent — electric blue through violet */
+  --color-volt: #4d7cfe;
+  --color-volt-soft: #7ba0ff;
+  --color-viol: #8b5cf6;
+
+  /* Type stacks — wired to next/font in layout.tsx */
+  --font-display: var(--font-instrument), ui-serif, Georgia, serif;
+  --font-sans: var(--font-inter-tight), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-jetbrains), ui-monospace, SFMono-Regular, monospace;
+
+  /* Spacious density scale (--density 3/10 from the design pass) */
+  --spacing-section: 10rem;
+  --spacing-section-sm: 6rem;
+
+  /* Motion tokens — one shared rhythm across the whole site */
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out-expo: cubic-bezier(0.87, 0, 0.13, 1);
+  --dur-fast: 200ms;
+  --dur-base: 400ms;
+  --dur-slow: 700ms;
+}
+
+@layer base {
+  * {
+    border-color: var(--color-line);
+  }
+
+  html {
+    background-color: var(--color-void);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    /* Lenis drives scrolling; native smooth would fight it */
+    scroll-behavior: auto;
+  }
+
+  body {
+    background-color: var(--color-void);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    font-feature-settings: "ss01", "cv01";
+    overflow-x: hidden;
+  }
+
+  /* Visible focus everywhere — never removed, only restyled.
+     3:1 against the void surface per the accessibility pass. */
+  :focus-visible {
+    outline: 2px solid var(--color-volt-soft);
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+  :focus:not(:focus-visible) {
+    outline: none;
+  }
+
+  ::selection {
+    background: var(--color-volt);
+    color: #fff;
+  }
+
+  /* Tabular figures for every number that sits in a column,
+     counter or metric — prevents width jitter while animating. */
+  .tnum {
+    font-variant-numeric: tabular-nums;
+  }
+}
+
+@layer utilities {
+  .font-display { font-family: var(--font-display); }
+  .font-mono { font-family: var(--font-mono); }
+
+  /* Editorial display sizing: tight leading, negative tracking */
+  .display-xl {
+    font-family: var(--font-display);
+    font-size: clamp(2.75rem, 9vw, 8.5rem);
+    line-height: 0.92;
+    letter-spacing: -0.03em;
+    font-weight: 400;
+  }
+  .display-lg {
+    font-family: var(--font-display);
+    font-size: clamp(2.25rem, 6.5vw, 5.5rem);
+    line-height: 0.95;
+    letter-spacing: -0.025em;
+    font-weight: 400;
+  }
+  .display-md {
+    font-family: var(--font-display);
+    font-size: clamp(1.875rem, 4vw, 3.25rem);
+    line-height: 1.02;
+    letter-spacing: -0.02em;
+    font-weight: 400;
+  }
+
+  /* Mono eyebrow label — the technical counterweight to the serif */
+  .eyebrow {
+    font-family: var(--font-mono);
+    font-size: 0.6875rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--color-ink-faint);
+  }
+
+  /* Balanced wrapping for short headings — progressive, UA-controlled.
+     Never forced with nonbreaking spaces. */
+  .balance { text-wrap: balance; }
+  .pretty { text-wrap: pretty; }
+
+  /* Long tokens (URLs, IDs, user content) reflow instead of overflowing */
+  .wrap-anywhere { overflow-wrap: anywhere; }
+
+  .accent-gradient {
+    background-image: linear-gradient(100deg, var(--color-volt), var(--color-viol));
+  }
+  .accent-text {
+    background-image: linear-gradient(100deg, var(--color-volt-soft), var(--color-viol));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  /* Hairline grid used as structural texture, not decoration */
+  .grid-lines {
+    background-image:
+      linear-gradient(to right, var(--color-line) 1px, transparent 1px),
+      linear-gradient(to bottom, var(--color-line) 1px, transparent 1px);
+    background-size: 5rem 5rem;
+  }
+
+  .shell {
+    width: 100%;
+    max-width: 90rem;
+    margin-inline: auto;
+    padding-inline: 1.5rem;
+  }
+  @media (min-width: 768px) {
+    .shell { padding-inline: 2.5rem; }
+  }
+  @media (min-width: 1280px) {
+    .shell { padding-inline: 4rem; }
+  }
+}
+
+/* ─────────────────────────────────────────────────────────────
+   REDUCED MOTION
+   Every scroll-scrub, parallax and reveal in this project is
+   individually gated in JS via gsap.matchMedia / useReducedMotion.
+   This block is the final backstop: content must render in its
+   readable final state, never stuck at opacity 0.
+   ───────────────────────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  [data-reveal] {
+    opacity: 1 !important;
+    transform: none !important;
+    clip-path: none !important;
+  }
+  .marquee-track {
+    animation: none !important;
+    transform: none !important;
+  }
+}
+
+@keyframes marquee {
+  from { transform: translate3d(0, 0, 0); }
+  to { transform: translate3d(-50%, 0, 0); }
+}
+.marquee-track {
+  animation: marquee var(--marquee-duration, 40s) linear infinite;
+  will-change: transform;
+}
+.marquee-host:hover .marquee-track {
+  animation-play-state: paused;
+}
