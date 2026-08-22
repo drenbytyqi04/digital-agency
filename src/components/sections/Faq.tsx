@@ -64,7 +64,7 @@ export function Faq() {
                         id={panelId}
                         role="region"
                         aria-labelledby={btnId}
-                        initial={reduce ? { opacity: 1 } : { height: 0, opacity: 0 }}
+                        initial={{ height: 0, opacity: 0 }}
                         animate={reduce ? { opacity: 1 } : { height: "auto", opacity: 1 }}
                         exit={reduce ? { opacity: 1 } : { height: 0, opacity: 0 }}
                         transition={{

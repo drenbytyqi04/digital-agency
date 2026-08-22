@@ -7,6 +7,8 @@ import { motionTokens } from "@/lib/utils";
 import { MagneticButton, ArrowLink } from "@/components/ui/MagneticButton";
 import { RevealText } from "@/components/ui/RevealText";
 import { Counter } from "@/components/ui/Counter";
+import { sectionPhotos } from "@/config/images";
+import { DecorImage } from "@/components/ui/Photo";
 
 /**
  * Hero thesis: the agency's own craft, shown rather than claimed.
@@ -42,8 +44,19 @@ export function Hero() {
       onMouseMove={onMouseMove}
       className="relative flex min-h-[100svh] flex-col justify-end overflow-hidden pb-12 pt-32 md:pb-16"
     >
-      {/* Structural grid + accent bloom */}
+      {/* Cinematic backdrop, structural grid, accent bloom */}
       <div aria-hidden="true" className="pointer-events-none absolute inset-0">
+        {/* Photographic base, graded almost to black so the display type
+            keeps its full 17:1 contrast. Decorative: empty alt, priority
+            so it never competes with LCP text as a late layout surprise. */}
+        <DecorImage
+          id={sectionPhotos.hero.id}
+          width={2000}
+          priority
+          sizes="100vw"
+          className="object-cover opacity-[0.24] [filter:grayscale(1)_contrast(1.15)_brightness(0.5)]"
+        />
+        <div className="absolute inset-0 bg-gradient-to-b from-void/75 via-void/45 to-void" />
         <motion.div className="grid-lines absolute inset-0 opacity-[0.55]" style={{ x: px, y: py }} />
         <div className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-void to-transparent" />
         <motion.div
@@ -60,7 +73,7 @@ export function Hero() {
         <motion.div style={{ y: yContent, opacity }} className="flex flex-col gap-10">
           {/* Eyebrow */}
           <motion.div
-            initial={reduce ? false : { opacity: 0, y: 16 }}
+            initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.15, ease: motionTokens.ease }}
             className="flex flex-wrap items-center gap-3"
@@ -77,7 +90,7 @@ export function Hero() {
 
           <div className="grid gap-10 lg:grid-cols-12 lg:items-end">
             <motion.div
-              initial={reduce ? false : { opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7, delay: 0.6, ease: motionTokens.ease }}
               className="flex flex-col gap-8 lg:col-span-6"
@@ -99,7 +112,7 @@ export function Hero() {
 
             {/* Statistics */}
             <motion.dl
-              initial={reduce ? false : { opacity: 0 }}
+              initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.8, delay: 0.85 }}
               className="grid grid-cols-2 gap-x-6 gap-y-8 border-t border-line pt-8 lg:col-span-6 lg:grid-cols-4 lg:border-l lg:border-t-0 lg:pl-10 lg:pt-0"
@@ -131,20 +144,23 @@ export function Hero() {
       {/* Scroll affordance */}
       <motion.div
         aria-hidden="true"
-        initial={reduce ? false : { opacity: 0 }}
+        initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 1.2 }}
         className="shell relative z-10 mt-14 flex items-center gap-3"
       >
         <span className="eyebrow">Scroll</span>
         <span className="relative h-px w-16 overflow-hidden bg-line-strong">
-          {!reduce && (
-            <motion.span
-              className="accent-gradient absolute inset-y-0 left-0 w-1/2"
-              animate={{ x: ["-100%", "200%"] }}
-              transition={{ duration: 2.2, repeat: Infinity, ease: "easeInOut" }}
-            />
-          )}
+          {/* Rendered unconditionally. Gating this on `reduce` produced a
+              different element tree on the client than the server sent,
+              which broke hydration for reduced-motion users. The loop is
+              neutralised by the prefers-reduced-motion rule instead. */}
+          <motion.span
+            data-reveal
+            className="accent-gradient absolute inset-y-0 left-0 w-1/2 motion-reduce:hidden"
+            animate={reduce ? undefined : { x: ["-100%", "200%"] }}
+            transition={{ duration: 2.2, repeat: Infinity, ease: "easeInOut" }}
+          />
         </span>
       </motion.div>
     </section>

@@ -3,6 +3,8 @@ import { site } from "@/config/site";
 import { Section, SectionHead } from "@/components/ui/Section";
 import { Reveal } from "@/components/ui/Reveal";
 import { MagneticButton } from "@/components/ui/MagneticButton";
+import { Photo } from "@/components/ui/Photo";
+import { brandingPhotos } from "@/config/images";
 
 export function Branding() {
   return (
@@ -31,8 +33,18 @@ export function Branding() {
           {/* Editorial identity composition */}
           <Reveal className="lg:col-span-7" delay={0.1}>
             <div className="grid grid-cols-6 grid-rows-6 gap-3 aspect-[4/3]">
-              <div className="col-span-3 row-span-4 flex items-center justify-center rounded-xl border border-line bg-void">
-                <span className="font-display text-6xl text-ink md:text-8xl">Aa</span>
+              <div className="relative col-span-3 row-span-4 overflow-hidden rounded-xl border border-line bg-void">
+                <Photo
+                  photo={brandingPhotos[2]}
+                  fallback={{ from: "#181410", to: "#050505", accent: "#D4A574" }}
+                  sizes="(max-width: 1024px) 50vw, 28vw"
+                />
+                {/* Type specimen sits over the photograph, not beside it */}
+                <span className="pointer-events-none absolute inset-0 flex items-center justify-center">
+                  <span className="font-display text-6xl text-ink mix-blend-difference md:text-8xl">
+                    Aa
+                  </span>
+                </span>
               </div>
               <div className="accent-gradient col-span-3 row-span-2 rounded-xl" />
               <div className="col-span-3 row-span-2 grid grid-cols-4 gap-2 rounded-xl border border-line bg-void p-3">
@@ -40,15 +52,19 @@ export function Branding() {
                   <span key={c} className="rounded-md" style={{ background: c }} />
                 ))}
               </div>
-              <div className="col-span-2 row-span-2 flex items-center justify-center rounded-xl border border-line bg-void">
-                <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-ink-faint">
-                  Grid
-                </span>
+              <div className="col-span-2 row-span-2 overflow-hidden rounded-xl border border-line">
+                <Photo
+                  photo={brandingPhotos[0]}
+                  fallback={{ from: "#14120f", to: "#050505", accent: "#8b5cf6" }}
+                  sizes="(max-width: 1024px) 33vw, 18vw"
+                />
               </div>
-              <div className="col-span-4 row-span-2 flex flex-col justify-center gap-2 rounded-xl border border-line bg-void p-5">
-                <span className="h-1.5 w-2/3 rounded-full bg-line-strong" />
-                <span className="h-1.5 w-1/2 rounded-full bg-line" />
-                <span className="h-1.5 w-3/4 rounded-full bg-line" />
+              <div className="col-span-4 row-span-2 overflow-hidden rounded-xl border border-line">
+                <Photo
+                  photo={brandingPhotos[1]}
+                  fallback={{ from: "#101418", to: "#050505", accent: "#4d7cfe" }}
+                  sizes="(max-width: 1024px) 66vw, 36vw"
+                />
               </div>
             </div>
           </Reveal>

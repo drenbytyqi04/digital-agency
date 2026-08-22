@@ -1,7 +1,6 @@
 "use client";
 
 import { useRef, useState } from "react";
-import Image from "next/image";
 import {
   AnimatePresence,
   motion,
@@ -10,7 +9,8 @@ import {
   useReducedMotion,
 } from "framer-motion";
 import { industries } from "@/config/content";
-import { industryPhotos, unsplashUrl, blurFrom } from "@/config/images";
+import { industryPhotos } from "@/config/images";
+import { DecorImage } from "@/components/ui/Photo";
 import { Section, SectionHead } from "@/components/ui/Section";
 import { motionTokens } from "@/lib/utils";
 
@@ -70,15 +70,11 @@ export function Industries() {
                 exit={{ opacity: 0, scale: 0.96 }}
                 transition={{ duration: motionTokens.fast, ease: motionTokens.ease }}
               >
-                <Image
-                  src={unsplashUrl(activePhoto.id, 640)}
-                  alt=""
-                  fill
+                <DecorImage
+                  id={activePhoto.id}
+                  width={640}
                   sizes="320px"
-                  placeholder="blur"
-                  blurDataURL={blurFrom("#0a0a0b")}
-                  className="object-cover"
-                  style={{ filter: "grayscale(1) contrast(1.1) brightness(0.7)" }}
+                  className="object-cover [filter:grayscale(1)_contrast(1.1)_brightness(0.7)]"
                 />
                 {/* Same duotone logic as <Photo>: tint the sector shot toward
                     the industry's own accent so it belongs to the palette. */}

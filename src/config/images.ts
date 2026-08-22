@@ -174,9 +174,182 @@ export const industryPhotos: Record<string, Photo> = {
   },
 };
 
+
+/* ── PROJECT GALLERIES ───────────────────────────────────────
+ * Distinct supporting shots per case study. The cover alone was
+ * previously reused for the hero AND both device frames, so the
+ * "gallery" showed one photograph three times.
+ * ────────────────────────────────────────────────────────── */
+export const projectGalleries: Record<string, Photo[]> = {
+  "sample-restaurant": [
+    {
+      id: "photo-1555396273-367ea4eb4db5",
+      alt: "Menu layout and typography detail on screen",
+      credit: "Kate Townsend on Unsplash",
+    },
+    {
+      id: "photo-1512941937669-90a1b58e7e9c",
+      alt: "Reservation flow shown on a mobile device",
+      credit: "Windows on Unsplash",
+    },
+  ],
+  "sample-travel": [
+    {
+      id: "photo-1504198266287-1659872e6590",
+      alt: "Itinerary timeline laid out across a wide screen",
+      credit: "Annie Spratt on Unsplash",
+    },
+    {
+      id: "photo-1522199755839-a2bacb67c546",
+      alt: "Enquiry form in use on a laptop",
+      credit: "Windows on Unsplash",
+    },
+  ],
+  "sample-real-estate": [
+    {
+      id: "photo-1460925895917-afdab827c52f",
+      alt: "Listing dashboard with data and map view",
+      credit: "Carlos Muza on Unsplash",
+    },
+    {
+      id: "photo-1551650975-87deedd944c3",
+      alt: "Saved-search interface on a handheld device",
+      credit: "UX Store on Unsplash",
+    },
+  ],
+  "sample-ecommerce": [
+    {
+      id: "photo-1441984904996-e0b6ba687e04",
+      alt: "Product catalogue grid on a storefront",
+      credit: "Charles Deluvio on Unsplash",
+    },
+    {
+      id: "photo-1556742049-0cfed4f6a45d",
+      alt: "Checkout step shown on a phone",
+      credit: "Rupixen on Unsplash",
+    },
+  ],
+  "sample-construction": [
+    {
+      id: "photo-1487958449943-2429e8be8625",
+      alt: "Structural detail from a completed building",
+      credit: "Joel Filipe on Unsplash",
+    },
+    {
+      id: "photo-1497366754035-f200968a6e72",
+      alt: "Project archive browsed on a desktop screen",
+      credit: "Nastuh Abootalebi on Unsplash",
+    },
+  ],
+  "sample-professional": [
+    {
+      id: "photo-1454165804606-c3d57bc86b40",
+      alt: "Insight article layout with long-form typography",
+      credit: "Campaign Creators on Unsplash",
+    },
+    {
+      id: "photo-1517245386807-bb43f82c33c4",
+      alt: "Practice-area navigation on a tablet",
+      credit: "Carl Heyerdahl on Unsplash",
+    },
+  ],
+};
+
+/* ── SERVICES ────────────────────────────────────────────────
+ * Hover previews on the service index, and the header image on
+ * each /services/[slug] page. Keyed by service slug.
+ * ────────────────────────────────────────────────────────── */
+export const servicePhotos: Record<string, Photo> = {
+  "website-design": {
+    id: "photo-1559028012-481c04fa702d",
+    alt: "Layout compositions and grid work on screen",
+    credit: "Balázs Kétyi on Unsplash",
+  },
+  "website-development": {
+    id: "photo-1461749280684-dccba630e2f6",
+    alt: "Source code open in an editor",
+    credit: "Jantine Doornbos on Unsplash",
+  },
+  branding: {
+    id: "photo-1626785774573-4b799315345d",
+    alt: "Brand collateral and printed identity pieces",
+    credit: "Kelly Sikkema on Unsplash",
+  },
+  "ui-ux-design": {
+    id: "photo-1586717791821-3f44a563fa4c",
+    alt: "Interface wireframes pinned across a wall",
+    credit: "Hal Gatewood on Unsplash",
+  },
+  ecommerce: {
+    id: "photo-1472851294608-062f824d29cc",
+    alt: "Online storefront product listing",
+    credit: "Heidi Fin on Unsplash",
+  },
+  "ai-automation": {
+    id: "photo-1620712943543-bcc4688e7485",
+    alt: "Abstract representation of connected systems",
+    credit: "Google DeepMind on Unsplash",
+  },
+  "seo-performance": {
+    id: "photo-1551288049-bebda4e38f71",
+    alt: "Analytics dashboard showing traffic trends",
+    credit: "Luke Chesser on Unsplash",
+  },
+  "digital-solutions": {
+    id: "photo-1531482615713-2afd69097998",
+    alt: "Custom dashboard interface on a large display",
+    credit: "Alvaro Reyes on Unsplash",
+  },
+};
+
+/* ── SECTION IMAGERY ─────────────────────────────────────── */
+export const sectionPhotos = {
+  /** Hero backdrop — heavily graded, sits behind the headline */
+  hero: {
+    id: "photo-1497366858526-0766cadbe8fa",
+    alt: "",
+    credit: "Nastuh Abootalebi on Unsplash",
+  } as Photo,
+  /** Closing CTA backdrop */
+  cta: {
+    id: "photo-1451187580459-43490279c0fa",
+    alt: "",
+    credit: "NASA on Unsplash",
+  } as Photo,
+  /** Live screen inside the device showcase frame */
+  showcase: {
+    id: "photo-1467232004584-a241de8bcf5d",
+    alt: "Finished website design displayed full-screen",
+    credit: "Igor Miske on Unsplash",
+  } as Photo,
+};
+
+/** Branding section composition. */
+export const brandingPhotos: Photo[] = [
+  {
+    id: "photo-1600096194534-95cf5ece04cf",
+    alt: "Logo marks applied across printed collateral",
+    credit: "Kelly Sikkema on Unsplash",
+  },
+  {
+    id: "photo-1524758631624-e2822e304c36",
+    alt: "Business cards and stationery in a brand system",
+    credit: "Brooke Cagle on Unsplash",
+  },
+  {
+    id: "photo-1611532736597-de2d4265fba3",
+    alt: "Packaging designed within a brand identity",
+    credit: "Mediamodifier on Unsplash",
+  },
+];
+
 /** Flat list used by the credits section and the verification script. */
 export const allPhotos: Photo[] = [
   ...Object.values(projectPhotos),
+  ...Object.values(projectGalleries).flat(),
+  ...Object.values(servicePhotos),
   ...Object.values(aboutPhotos),
   ...Object.values(industryPhotos),
+  ...Object.values(sectionPhotos),
+  ...brandingPhotos,
 ];

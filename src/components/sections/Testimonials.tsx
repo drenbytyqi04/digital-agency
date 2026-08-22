@@ -40,7 +40,7 @@ export function Testimonials() {
             <AnimatePresence mode="wait">
               <motion.figure
                 key={i}
-                initial={reduce ? false : { opacity: 0, y: 16 }}
+                initial={{ opacity: 0, y: 16 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={reduce ? { opacity: 0 } : { opacity: 0, y: -12 }}
                 transition={{

@@ -5,6 +5,8 @@ import { site } from "@/config/site";
 import { MagneticButton } from "@/components/ui/MagneticButton";
 import { RevealText } from "@/components/ui/RevealText";
 import { Reveal } from "@/components/ui/Reveal";
+import { sectionPhotos } from "@/config/images";
+import { DecorImage } from "@/components/ui/Photo";
 
 export function StartProject() {
   const reduce = useReducedMotion();
@@ -13,6 +15,13 @@ export function StartProject() {
     <section className="relative flex min-h-[85svh] items-center overflow-hidden border-t border-line">
       {/* Slow-drifting accent field */}
       <div aria-hidden="true" className="pointer-events-none absolute inset-0">
+        <DecorImage
+          id={sectionPhotos.cta.id}
+          width={2000}
+          sizes="100vw"
+          className="object-cover opacity-[0.22] [filter:grayscale(1)_contrast(1.2)_brightness(0.55)]"
+        />
+        <div className="absolute inset-0 bg-gradient-to-b from-void via-void/60 to-void" />
         <div className="grid-lines absolute inset-0 opacity-30" />
         <motion.div
           className="absolute left-1/2 top-1/2 h-[46rem] w-[46rem] -translate-x-1/2 -translate-y-1/2 rounded-full blur-[130px]"

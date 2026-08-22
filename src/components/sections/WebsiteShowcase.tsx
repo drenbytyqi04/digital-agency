@@ -6,6 +6,8 @@ import { siteCapabilities } from "@/config/content";
 import { site } from "@/config/site";
 import { Section, SectionHead } from "@/components/ui/Section";
 import { MagneticButton } from "@/components/ui/MagneticButton";
+import { sectionPhotos } from "@/config/images";
+import { DecorImage } from "@/components/ui/Photo";
 import { cn, motionTokens } from "@/lib/utils";
 
 const devices = [
@@ -70,15 +72,24 @@ export function WebsiteShowcase() {
                   ))}
                 </span>
               </div>
-              <div className="flex flex-1 flex-col justify-center gap-3">
-                <span className="accent-gradient h-1 w-12 rounded-full" />
-                <span className="font-display text-xl leading-[0.95] text-ink md:text-3xl">
+              <div className="relative flex flex-1 flex-col justify-center gap-3">
+                {/* Photographic fill behind the mock interface, graded so the
+                    overlaid type keeps its contrast at every device width. */}
+                <DecorImage
+                  id={sectionPhotos.showcase.id}
+                  width={1200}
+                  sizes="(max-width: 768px) 100vw, 60vw"
+                  className="rounded-md object-cover opacity-30 [filter:grayscale(1)_contrast(1.1)_brightness(0.6)]"
+                />
+                <span className="absolute inset-0 rounded-md bg-gradient-to-r from-void via-void/70 to-transparent" />
+                <span className="accent-gradient relative h-1 w-12 rounded-full" />
+                <span className="relative font-display text-xl leading-[0.95] text-ink md:text-3xl">
                   Digital experiences
                   <br />
                   that convert.
                 </span>
-                <span className="h-1.5 w-1/2 rounded-full bg-line-strong" />
-                <span className="mt-2 h-7 w-24 rounded-full bg-ink" />
+                <span className="relative h-1.5 w-1/2 rounded-full bg-line-strong" />
+                <span className="relative mt-2 h-7 w-24 rounded-full bg-ink" />
               </div>
             </div>
           </motion.div>

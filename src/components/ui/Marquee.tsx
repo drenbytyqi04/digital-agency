@@ -1,6 +1,5 @@
 "use client";
 
-import { useReducedMotion } from "framer-motion";
 import type { ReactNode } from "react";
 import { cn } from "@/lib/utils";
 
@@ -23,15 +22,12 @@ export function Marquee({
   className?: string;
   reverse?: boolean;
 }) {
-  const reduce = useReducedMotion();
-
-  if (reduce) {
-    return (
-      <div className={cn("flex flex-wrap justify-center gap-x-10 gap-y-4", className)}>
-        {children}
-      </div>
-    );
-  }
+  /**
+   * One tree in both motion modes. A separate reduced-motion branch made
+   * the server and client render different HTML and broke hydration; the
+   * `.marquee-track { animation: none }` rule under prefers-reduced-motion
+   * stops the scroll instead, and the duplicated track stays aria-hidden.
+   */
 
   return (
     <div

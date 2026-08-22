@@ -4,6 +4,8 @@ import { services, getService } from "@/config/services";
 import { site } from "@/config/site";
 import { PageHeader } from "@/components/ui/PageHeader";
 import { Reveal } from "@/components/ui/Reveal";
+import { Photo } from "@/components/ui/Photo";
+import { servicePhotos } from "@/config/images";
 import { processSteps } from "@/config/content";
 import { StartProject } from "@/components/sections/StartProject";
 import { ArrowLink } from "@/components/ui/MagneticButton";
@@ -42,6 +44,19 @@ export default async function ServicePage({
   return (
     <>
       <PageHeader eyebrow={`Service ${service.index}`} title={service.title} lead={service.short} />
+
+      {servicePhotos[service.slug] && (
+        <Reveal className="shell -mt-8">
+          <div className="aspect-[21/9] w-full overflow-hidden rounded-xl border border-line">
+            <Photo
+              photo={servicePhotos[service.slug]}
+              fallback={{ from: "#12141a", to: "#050505", accent: "#4d7cfe" }}
+              priority
+              sizes="(max-width: 1440px) 100vw, 1440px"
+            />
+          </div>
+        </Reveal>
+      )}
 
       <section className="shell py-20 md:py-28">
         <div className="grid gap-14 lg:grid-cols-12">

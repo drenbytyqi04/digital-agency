@@ -138,3 +138,47 @@ export function Photo({
     </div>
   );
 }
+
+/**
+ * Decorative background image.
+ *
+ * For purely atmospheric photography — hero and CTA backdrops, hover
+ * previews — where there is nothing meaningful to fall back TO. It
+ * removes itself if the source fails, so a blocked CDN or a stale ID
+ * leaves the designed gradient underneath rather than a broken <img>
+ * sitting in the DOM. Always alt="" — these carry no information.
+ */
+export function DecorImage({
+  id,
+  width,
+  sizes,
+  className,
+  priority = false,
+  blurTint = "#0a0a0b",
+}: {
+  id: string;
+  width: number;
+  sizes: string;
+  className?: string;
+  priority?: boolean;
+  blurTint?: string;
+}) {
+  const [failed, setFailed] = useState(false);
+  if (failed) return null;
+
+  return (
+    <Image
+      src={unsplashUrl(id, width)}
+      alt=""
+      aria-hidden="true"
+      fill
+      sizes={sizes}
+      priority={priority}
+      loading={priority ? undefined : "lazy"}
+      placeholder="blur"
+      blurDataURL={blurFrom(blurTint)}
+      onError={() => setFailed(true)}
+      className={className}
+    />
+  );
+}

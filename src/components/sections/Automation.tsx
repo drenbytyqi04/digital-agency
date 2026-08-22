@@ -40,22 +40,23 @@ export function Automation() {
                   className="relative my-2 flex h-8 w-full items-center justify-center lg:my-0 lg:h-full lg:w-10"
                 >
                   <span className="absolute h-full w-px bg-line lg:h-px lg:w-full" />
-                  {!reduce && (
-                    <motion.span
-                      className="absolute h-1.5 w-1.5 rounded-full bg-volt"
-                      animate={{
-                        y: ["-50%", "50%"],
-                        x: 0,
-                        opacity: [0, 1, 0],
-                      }}
-                      transition={{
-                        duration: 1.8,
-                        repeat: Infinity,
-                        delay: i * 0.35,
-                        ease: "easeInOut",
-                      }}
-                    />
-                  )}
+                  {/* Rendered unconditionally — see Hero.tsx. A `reduce`
+                      gate here changed the tree between server and client
+                      and broke hydration. Hidden by CSS instead. */}
+                  <motion.span
+                    className="absolute h-1.5 w-1.5 rounded-full bg-volt motion-reduce:hidden"
+                    animate={
+                      reduce
+                        ? undefined
+                        : { y: ["-50%", "50%"], x: 0, opacity: [0, 1, 0] }
+                    }
+                    transition={{
+                      duration: 1.8,
+                      repeat: Infinity,
+                      delay: i * 0.35,
+                      ease: "easeInOut",
+                    }}
+                  />
                 </span>
               )}
             </li>

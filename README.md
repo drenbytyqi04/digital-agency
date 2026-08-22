@@ -95,10 +95,27 @@ It reports each ID as `ok` or `FAIL`, and distinguishes a blocked network from a
 genuinely bad ID so you don't go hunting for replacements that were never wrong.
 Swap any failures in `src/config/images.ts`.
 
+### Where photography appears
+
+| Section | Images |
+| --- | --- |
+| Hero | Graded backdrop behind the headline |
+| Services | Row-anchored preview on hover **and keyboard focus** |
+| Work / case studies | Cover plus two distinct gallery shots per project |
+| Service pages | Header image per service |
+| Industries | Cursor-following preview, pointer-only |
+| Branding | Three-image editorial composition |
+| Website showcase | Live screen inside the device frame |
+| About | Studio, workspace, process |
+| Closing CTA | Graded backdrop |
+
+42 photos in total.
+
 ### Graceful degradation
 
-Every photo renders through `<Photo>`, which falls back to the generated
-gradient artwork if the image fails to load — a stale ID, an offline build or a
+Meaningful photos render through `<Photo>`, which falls back to the generated
+gradient artwork if the image fails to load; purely decorative ones use
+`<DecorImage>`, which removes itself so the designed gradient shows through — a stale ID, an offline build or a
 blocked CDN degrades to something deliberate rather than a broken-image icon.
 This path is exercised and verified: with Unsplash blocked, the site renders
 **zero broken images**.

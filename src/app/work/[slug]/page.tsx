@@ -4,7 +4,7 @@ import Link from "next/link";
 import { projects, getProject } from "@/config/projects";
 import { site } from "@/config/site";
 import { Photo } from "@/components/ui/Photo";
-import { projectPhotos } from "@/config/images";
+import { projectPhotos, projectGalleries } from "@/config/images";
 import { Reveal } from "@/components/ui/Reveal";
 import { RevealText } from "@/components/ui/RevealText";
 import { MagneticButton, ArrowLink } from "@/components/ui/MagneticButton";
@@ -39,6 +39,7 @@ export default async function CaseStudyPage({
   if (!project) notFound();
 
   const photo = projectPhotos[project.slug];
+  const gallery = projectGalleries[project.slug] ?? [];
   const index = projects.findIndex((p) => p.slug === slug);
   const next = projects[(index + 1) % projects.length];
 
@@ -126,7 +127,11 @@ export default async function CaseStudyPage({
         <div className="grid gap-6 md:grid-cols-3">
           <div className="md:col-span-2">
             <div className="aspect-[16/10] overflow-hidden rounded-xl border border-line">
-              <Photo photo={photo} fallback={project.art} sizes="(max-width: 768px) 100vw, 60vw" />
+              <Photo
+                photo={gallery[0] ?? photo}
+                fallback={project.art}
+                sizes="(max-width: 768px) 100vw, 60vw"
+              />
             </div>
             <p className="mt-3 font-mono text-[10px] uppercase tracking-widest text-ink-faint">
               Desktop
@@ -134,7 +139,11 @@ export default async function CaseStudyPage({
           </div>
           <div>
             <div className="aspect-[9/16] overflow-hidden rounded-xl border border-line">
-              <Photo photo={photo} fallback={project.art} sizes="(max-width: 768px) 100vw, 30vw" />
+              <Photo
+                photo={gallery[1] ?? photo}
+                fallback={project.art}
+                sizes="(max-width: 768px) 100vw, 30vw"
+              />
             </div>
             <p className="mt-3 font-mono text-[10px] uppercase tracking-widest text-ink-faint">
               Mobile

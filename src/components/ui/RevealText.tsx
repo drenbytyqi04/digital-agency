@@ -26,23 +26,17 @@ type Props = {
 export function RevealText({ text, className, delay = 0, by = "word", immediate = false }: Props) {
   const ref = useRef<HTMLSpanElement>(null);
   const inView = useInView(ref, { once: true, margin: "0px 0px -10% 0px" });
-  const reduce = useReducedMotion();
   const pieces = by === "line" ? text.split("\n") : text.split(" ");
 
-  if (reduce) {
-    return (
-      <span className={className}>
-        {by === "line"
-          ? pieces.map((line, i) => (
-              <span key={i} className="block">
-                {line}
-              </span>
-            ))
-          : text}
-      </span>
-    );
-  }
-
+  /**
+   * No reduced-motion branch here. Returning a different element tree for
+   * reduced motion made the server HTML (always rendered unreduced) differ
+   * from the client's first render, which threw a hydration mismatch for
+   * exactly the users who enable the setting. One tree is rendered always;
+   * the `prefers-reduced-motion` block in globals.css pins [data-reveal]
+   * to its final readable state, and the split pieces stay aria-hidden
+   * behind the wrapper's aria-label either way.
+   */
   const show = immediate || inView;
 
   return (

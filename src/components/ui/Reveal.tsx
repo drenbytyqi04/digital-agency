@@ -47,7 +47,7 @@ export function Reveal({
       ref={ref}
       data-reveal
       className={className}
-      initial={reduce ? false : { opacity: 0, y }}
+      initial={{ opacity: 0, y }}
       animate={show ? { opacity: 1, y: 0 } : { opacity: 0, y }}
       transition={{ duration: motionTokens.slow, delay, ease: motionTokens.ease }}
     >
