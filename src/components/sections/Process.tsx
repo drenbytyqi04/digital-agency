@@ -13,7 +13,7 @@ import { Reveal } from "@/components/ui/Reveal";
  * reduced motion the line renders complete and every step is fully
  * visible — the section still reads top to bottom as a plain list.
  */
-export function Process() {
+export function Process({ showHead = true }: { showHead?: boolean }) {
   const ref = useRef<HTMLDivElement>(null);
   const reduce = useReducedMotion();
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start 65%", "end 85%"] });
@@ -25,8 +25,8 @@ export function Process() {
         <div className="grid gap-16 lg:grid-cols-12">
           <div className="lg:col-span-4">
             <div className="lg:sticky lg:top-32">
-              <SectionHead eyebrow="Process" title={"From Idea\nto Impact."} />
-              <p className="pretty mt-6 max-w-sm text-sm leading-relaxed text-ink-dim">
+              {showHead && <SectionHead eyebrow="Process" title={"From Idea\nto Impact."} />}
+              <p className={`pretty ${showHead ? "mt-6 " : ""}max-w-sm text-sm leading-relaxed text-ink-dim`}>
                 Five stages, each with a named deliverable and a decision point. You always know
                 what is happening and what comes next.
               </p>

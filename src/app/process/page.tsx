@@ -19,7 +19,7 @@ export default function ProcessPage() {
         title={"From Idea\nto Impact."}
         lead="Five stages, each with a named deliverable and a decision point. You always know what is happening and what comes next."
       />
-      <Process />
+      <Process showHead={false} />
       <Faq />
       <StartProject />
     </>

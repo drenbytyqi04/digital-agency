@@ -18,7 +18,7 @@ export default function WorkPage() {
         title="Work That Speaks."
         lead="Sample projects showing how we approach different sectors. Each one is a placeholder illustrating our process, replaced by real client work as it ships."
       />
-      <Work />
+      <Work showHead={false} />
       <StartProject />
     </>
   );

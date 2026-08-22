@@ -2,25 +2,28 @@ import Link from "next/link";
 import { projects } from "@/config/projects";
 import { Section, SectionHead } from "@/components/ui/Section";
 import { Reveal } from "@/components/ui/Reveal";
-import { ProjectArt } from "@/components/ui/ProjectArt";
+import { Photo } from "@/components/ui/Photo";
+import { projectPhotos } from "@/config/images";
 import { ArrowLink } from "@/components/ui/MagneticButton";
 
-export function Work({ limit }: { limit?: number }) {
+export function Work({ limit, showHead = true }: { limit?: number; showHead?: boolean }) {
   const list = limit ? projects.slice(0, limit) : projects;
 
   return (
     <Section id="work">
       <div className="shell">
-        <div className="flex flex-wrap items-end justify-between gap-8">
-          <SectionHead
-            eyebrow="Selected work"
-            title="Work That Speaks."
-            lead="Sample projects illustrating how we approach different sectors. Real client work replaces these as it ships."
-          />
-          {limit && <ArrowLink href="/work">All work</ArrowLink>}
-        </div>
+        {showHead && (
+          <div className="flex flex-wrap items-end justify-between gap-8">
+            <SectionHead
+              eyebrow="Selected work"
+              title="Work That Speaks."
+              lead="Sample projects illustrating how we approach different sectors. Real client work replaces these as it ships."
+            />
+            {limit && <ArrowLink href="/work">All work</ArrowLink>}
+          </div>
+        )}
 
-        <div className="mt-20 grid gap-x-8 gap-y-16 md:grid-cols-2">
+        <div className={`${showHead ? "mt-20 " : ""}grid gap-x-8 gap-y-16 md:grid-cols-2`}>
           {list.map((project, i) => (
             <Reveal
               key={project.slug}
@@ -37,11 +40,15 @@ export function Work({ limit }: { limit?: number }) {
                     }
                   >
                     <div className="h-full w-full transition-transform duration-[900ms] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-[1.04]">
-                      <ProjectArt
-                        from={project.art.from}
-                        to={project.art.to}
-                        accent={project.art.accent}
-                        className="h-full w-full"
+                      <Photo
+                        photo={projectPhotos[project.slug]}
+                        fallback={project.art}
+                        priority={i === 0}
+                        sizes={
+                          i % 3 === 0
+                            ? "(max-width: 768px) 100vw, 90vw"
+                            : "(max-width: 768px) 100vw, 45vw"
+                        }
                       />
                     </div>
                   </div>

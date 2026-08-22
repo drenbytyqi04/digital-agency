@@ -12,9 +12,10 @@ smooth scroll.
 
 ```bash
 npm install
-npm run dev        # http://localhost:3000
-npm run build      # production build
-npm run typecheck  # tsc --noEmit
+npm run dev           # http://localhost:3000
+npm run build         # production build
+npm run typecheck     # tsc --noEmit
+npm run check:images  # verify every Unsplash photo resolves
 ```
 
 ## Configuration — one place for everything
@@ -27,6 +28,7 @@ No business information is hardcoded in components. Everything lives in `src/con
 | `services.ts` | The eight services, their copy, capabilities, and which get their own page |
 | `projects.ts` | Case studies — narrative, services, technologies, cover art, metrics |
 | `content.ts` | Process, differentiators, technologies, industries, testimonials, FAQ, form options |
+| `images.ts` | Every Unsplash photo — ID, alt text, photographer credit |
 
 ### Honesty defaults
 
@@ -41,6 +43,48 @@ The build takes that literally:
 - **Client logos** in the trust bar are wordmarks labelled as samples.
 
 Fill any of these in and the corresponding UI activates automatically.
+
+## Photography
+
+All photography is Unsplash, served from `images.unsplash.com` through
+`next/image` (AVIF/WebP, responsive `sizes`, lazy below the fold, blur-up
+placeholder). Nothing is hardcoded in a component — every photo is declared in
+`src/config/images.ts` with its alt text and photographer credit.
+
+### ⚠️ Verify the photo IDs before launch
+
+The photo IDs were authored in a sandbox where `images.unsplash.com` is
+network-blocked, so **they could not be fetched and confirmed**. Run this on a
+machine with normal internet access:
+
+```bash
+npm run check:images
+```
+
+It reports each ID as `ok` or `FAIL`, and distinguishes a blocked network from a
+genuinely bad ID so you don't go hunting for replacements that were never wrong.
+Swap any failures in `src/config/images.ts`.
+
+### Graceful degradation
+
+Every photo renders through `<Photo>`, which falls back to the generated
+gradient artwork if the image fails to load — a stale ID, an offline build or a
+blocked CDN degrades to something deliberate rather than a broken-image icon.
+This path is exercised and verified: with Unsplash blocked, the site renders
+**zero broken images**.
+
+### To replace a photo
+
+1. Find it on unsplash.com
+2. Take the ID from the URL — `unsplash.com/photos/<slug>-<ID>`, or copy the
+   image address and take the `photo-…` segment
+3. Paste it as `id` in `src/config/images.ts` and update `alt` and `credit`
+
+### Licence
+
+Unsplash photos are free for commercial and non-commercial use with no
+permission needed. Attribution is not required but is appreciated — each photo's
+`credit` is rendered on its case-study page.
 
 ## Design system
 

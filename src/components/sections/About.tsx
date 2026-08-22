@@ -1,16 +1,18 @@
 import { Section, SectionHead } from "@/components/ui/Section";
 import { Reveal } from "@/components/ui/Reveal";
 import { ArrowLink } from "@/components/ui/MagneticButton";
+import { Photo } from "@/components/ui/Photo";
+import { aboutPhotos } from "@/config/images";
 
 const disciplines = ["Design", "Development", "Branding", "Strategy", "Technology", "AI", "Marketing"];
 
-export function About() {
+export function About({ showHead = true }: { showHead?: boolean }) {
   return (
     <Section>
       <div className="shell">
         <div className="grid gap-16 lg:grid-cols-12 lg:items-start">
           <div className="lg:col-span-6">
-            <SectionHead eyebrow="About" title={"Small Team.\nBig Digital Thinking."} />
+            {showHead && <SectionHead eyebrow="About" title={"Small Team.\nBig Digital Thinking."} />}
             <div className="mt-8 flex max-w-lg flex-col gap-5 text-base leading-relaxed text-ink-dim">
               <p className="pretty">
                 We are a creative technology partner, not a traditional agency. The same people who
@@ -39,25 +41,31 @@ export function About() {
 
           <Reveal className="lg:col-span-6" delay={0.1}>
             <div className="grid grid-cols-2 gap-4">
-              <div className="col-span-2 flex aspect-[16/10] items-center justify-center rounded-xl border border-line bg-surface">
-                <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-ink-faint">
-                  Team photograph
-                </span>
+              <div className="col-span-2 aspect-[16/10] overflow-hidden rounded-xl border border-line">
+                <Photo
+                  photo={aboutPhotos.team}
+                  fallback={{ from: "#12141a", to: "#050505", accent: "#4d7cfe" }}
+                  sizes="(max-width: 1024px) 100vw, 45vw"
+                />
               </div>
-              <div className="flex aspect-square items-center justify-center rounded-xl border border-line bg-surface">
-                <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-ink-faint">
-                  Workspace
-                </span>
+              <div className="aspect-square overflow-hidden rounded-xl border border-line">
+                <Photo
+                  photo={aboutPhotos.workspace}
+                  fallback={{ from: "#14120f", to: "#050505", accent: "#8b5cf6" }}
+                  sizes="(max-width: 1024px) 50vw, 22vw"
+                />
               </div>
-              <div className="flex aspect-square items-center justify-center rounded-xl border border-line bg-surface">
-                <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-ink-faint">
-                  Process
-                </span>
+              <div className="aspect-square overflow-hidden rounded-xl border border-line">
+                <Photo
+                  photo={aboutPhotos.process}
+                  fallback={{ from: "#101418", to: "#050505", accent: "#6EE7B7" }}
+                  sizes="(max-width: 1024px) 50vw, 22vw"
+                />
               </div>
             </div>
             <p className="mt-4 text-[11px] text-ink-faint">
-              Image placeholders — spaces are reserved so swapping in real photography causes no
-              layout shift.
+              Photography from Unsplash — replace with real studio and team images in{" "}
+              <code className="wrap-anywhere font-mono">src/config/images.ts</code>.
             </p>
           </Reveal>
         </div>

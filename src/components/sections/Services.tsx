@@ -13,20 +13,22 @@ import { motionTokens } from "@/lib/utils";
  * wash behind it. All hover state has a keyboard-focus equivalent, and
  * the row itself is a single link so the whole strip is one target.
  */
-export function Services() {
+export function Services({ showHead = true }: { showHead?: boolean }) {
   const [active, setActive] = useState<string | null>(null);
   const reduce = useReducedMotion();
 
   return (
     <Section id="services">
       <div className="shell">
-        <SectionHead
-          eyebrow="Services"
-          title={"Everything You Need\nto Go Digital."}
-          lead="Eight disciplines, one team. Most projects use three or four of them together."
-        />
+        {showHead && (
+          <SectionHead
+            eyebrow="Services"
+            title={"Everything You Need\nto Go Digital."}
+            lead="Eight disciplines, one team. Most projects use three or four of them together."
+          />
+        )}
 
-        <ul className="mt-20 border-t border-line">
+        <ul className={`${showHead ? "mt-20 " : ""}border-t border-line`}>
           {services.map((service) => {
             const isActive = active === service.slug;
             return (

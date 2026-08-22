@@ -3,7 +3,8 @@ import { notFound } from "next/navigation";
 import Link from "next/link";
 import { projects, getProject } from "@/config/projects";
 import { site } from "@/config/site";
-import { ProjectArt } from "@/components/ui/ProjectArt";
+import { Photo } from "@/components/ui/Photo";
+import { projectPhotos } from "@/config/images";
 import { Reveal } from "@/components/ui/Reveal";
 import { RevealText } from "@/components/ui/RevealText";
 import { MagneticButton, ArrowLink } from "@/components/ui/MagneticButton";
@@ -37,6 +38,7 @@ export default async function CaseStudyPage({
   const project = getProject(slug);
   if (!project) notFound();
 
+  const photo = projectPhotos[project.slug];
   const index = projects.findIndex((p) => p.slug === slug);
   const next = projects[(index + 1) % projects.length];
 
@@ -67,11 +69,11 @@ export default async function CaseStudyPage({
 
       <Reveal className="shell">
         <div className="aspect-[16/9] w-full overflow-hidden rounded-xl border border-line">
-          <ProjectArt
-            from={project.art.from}
-            to={project.art.to}
-            accent={project.art.accent}
-            className="h-full w-full"
+          <Photo
+            photo={photo}
+            fallback={project.art}
+            priority
+            sizes="(max-width: 1440px) 100vw, 1440px"
           />
         </div>
       </Reveal>
@@ -84,6 +86,7 @@ export default async function CaseStudyPage({
             ["Year", project.year],
             ["Services", project.services.join(", ")],
             ["Technologies", project.technologies.join(", ")],
+            ["Photography", photo.credit],
           ].map(([k, v]) => (
             <div key={k}>
               <dt className="font-mono text-[10px] uppercase tracking-widest text-ink-faint">{k}</dt>
@@ -123,7 +126,7 @@ export default async function CaseStudyPage({
         <div className="grid gap-6 md:grid-cols-3">
           <div className="md:col-span-2">
             <div className="aspect-[16/10] overflow-hidden rounded-xl border border-line">
-              <ProjectArt {...project.art} className="h-full w-full" />
+              <Photo photo={photo} fallback={project.art} sizes="(max-width: 768px) 100vw, 60vw" />
             </div>
             <p className="mt-3 font-mono text-[10px] uppercase tracking-widest text-ink-faint">
               Desktop
@@ -131,7 +134,7 @@ export default async function CaseStudyPage({
           </div>
           <div>
             <div className="aspect-[9/16] overflow-hidden rounded-xl border border-line">
-              <ProjectArt {...project.art} className="h-full w-full" />
+              <Photo photo={photo} fallback={project.art} sizes="(max-width: 768px) 100vw, 30vw" />
             </div>
             <p className="mt-3 font-mono text-[10px] uppercase tracking-widest text-ink-faint">
               Mobile

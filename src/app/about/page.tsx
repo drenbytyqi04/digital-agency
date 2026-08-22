@@ -20,7 +20,7 @@ export default function AboutPage() {
         title={"Small Team.\nBig Digital Thinking."}
         lead="A creative technology partner, not a traditional agency."
       />
-      <About />
+      <About showHead={false} />
       <WhyUs />
       <Technology />
       <StartProject />

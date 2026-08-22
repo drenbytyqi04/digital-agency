@@ -19,7 +19,7 @@ export default function ServicesPage() {
         title={"Everything You Need\nto Go Digital."}
         lead="Eight disciplines under one roof. Most projects combine three or four of them."
       />
-      <Services />
+      <Services showHead={false} />
       <Process />
       <StartProject />
     </>
