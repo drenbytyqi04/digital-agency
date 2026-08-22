@@ -75,7 +75,7 @@ export function Nav() {
         className={cn(
           "fixed inset-x-0 top-0 z-[90] transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]",
           scrolled
-            ? "border-b border-line bg-void/70 backdrop-blur-xl"
+            ? "border-b border-line bg-void/85 backdrop-blur-md md:bg-void/70 md:backdrop-blur-xl"
             : "border-b border-transparent bg-transparent"
         )}
       >

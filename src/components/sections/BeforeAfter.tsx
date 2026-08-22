@@ -54,10 +54,10 @@ export function BeforeAfter() {
                 </span>
               </div>
 
-              <span className="pointer-events-none absolute left-4 top-4 rounded-full bg-void/80 px-3 py-1 font-mono text-[10px] uppercase tracking-widest text-ink backdrop-blur-sm">
+              <span className="pointer-events-none absolute left-4 top-4 rounded-full bg-void/90 px-3 py-1 font-mono text-[10px] uppercase tracking-widest text-ink md:bg-void/80 md:backdrop-blur-sm">
                 Before
               </span>
-              <span className="pointer-events-none absolute right-4 top-4 rounded-full bg-void/80 px-3 py-1 font-mono text-[10px] uppercase tracking-widest text-ink backdrop-blur-sm">
+              <span className="pointer-events-none absolute right-4 top-4 rounded-full bg-void/90 px-3 py-1 font-mono text-[10px] uppercase tracking-widest text-ink md:bg-void/80 md:backdrop-blur-sm">
                 After
               </span>
             </div>

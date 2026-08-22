@@ -53,7 +53,7 @@ export function Work({ limit, showHead = true }: { limit?: number; showHead?: bo
                       />
                     </div>
                   </div>
-                  <span className="absolute left-5 top-5 rounded-full border border-line-strong bg-void/70 px-3 py-1 font-mono text-[10px] uppercase tracking-widest text-ink-dim backdrop-blur-sm">
+                  <span className="absolute left-5 top-5 rounded-full border border-line-strong bg-void/90 px-3 py-1 font-mono text-[10px] uppercase tracking-widest text-ink-dim md:bg-void/70 md:backdrop-blur-sm">
                     Sample project
                   </span>
                 </div>

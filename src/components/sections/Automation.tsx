@@ -1,5 +1,7 @@
 "use client";
 
+import { useEffect, useState } from "react";
+
 import { motion, useReducedMotion } from "framer-motion";
 import { automationFlow, automationCapabilities } from "@/config/content";
 import { Section, SectionHead } from "@/components/ui/Section";
@@ -8,6 +10,13 @@ import { motionTokens } from "@/lib/utils";
 
 export function Automation() {
   const reduce = useReducedMotion();
+  /* Four dots looping forever is a constant compositor cost for pure
+     decoration. Pointer devices only. */
+  const [flow, setFlow] = useState(false);
+  useEffect(() => {
+    if (reduce) return;
+    setFlow(window.matchMedia("(hover: hover) and (pointer: fine)").matches);
+  }, [reduce]);
 
   return (
     <Section className="relative overflow-hidden bg-surface">
@@ -46,9 +55,7 @@ export function Automation() {
                   <motion.span
                     className="absolute h-1.5 w-1.5 rounded-full bg-volt motion-reduce:hidden"
                     animate={
-                      reduce
-                        ? undefined
-                        : { y: ["-50%", "50%"], x: 0, opacity: [0, 1, 0] }
+                      flow ? { y: ["-50%", "50%"], x: 0, opacity: [0, 1, 0] } : undefined
                     }
                     transition={{
                       duration: 1.8,

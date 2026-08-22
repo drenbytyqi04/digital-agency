@@ -162,6 +162,36 @@ All text tokens are verified against the void surface at AA or better:
 | `--color-volt-soft` | 8.07:1 |
 | `--color-volt` | 5.46:1 |
 
+## Mobile performance
+
+Animation work is tuned per input device rather than run identically everywhere.
+
+| | Before | After |
+| --- | --- | --- |
+| Lenis smooth scroll on touch | active | **off** |
+| Blur filters ≥ 40px | 2 | **0** |
+| `backdrop-filter` elements | 6 | **1** |
+| Permanently promoted `will-change` layers | 6 | **0** |
+| Infinite animations running off-screen | 11 | **0** |
+
+- **Lenis runs on pointer devices only.** On a phone it intercepted touch
+  scrolling and re-drove it from JavaScript, replacing native momentum with a
+  laggy, floaty scroll — and every scroll-linked reveal inherited that lag, so
+  sections appeared to open late.
+- **The accent blooms use gradients, not `blur()`.** A 120px blur on a 600px
+  layer bought almost nothing over the radial gradient already underneath it,
+  while forcing a large offscreen buffer to recomposite on every scroll frame.
+- **Marquees pause off-screen** via IntersectionObserver and release their
+  `will-change` layer when paused. They resume and animate normally when
+  scrolled back into view.
+- **Hero parallax, the CTA pulse and the automation flow dots are pointer-only** —
+  decorative loops that cost frames and battery on mobile for effects that are
+  barely perceptible on a small viewport.
+
+The marquee CSS lives in `@layer components` deliberately: unlayered rules
+outrank every Tailwind utility, and while it sat outside a layer the pause
+classes were silently overridden.
+
 ## Accessibility
 
 - Every scroll animation is gated on `prefers-reduced-motion`, with a CSS backstop

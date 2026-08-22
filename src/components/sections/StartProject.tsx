@@ -1,5 +1,7 @@
 "use client";
 
+import { useEffect, useState } from "react";
+
 import { motion, useReducedMotion } from "framer-motion";
 import { site } from "@/config/site";
 import { MagneticButton } from "@/components/ui/MagneticButton";
@@ -10,6 +12,11 @@ import { DecorImage } from "@/components/ui/Photo";
 
 export function StartProject() {
   const reduce = useReducedMotion();
+  const [pulse, setPulse] = useState(false);
+  useEffect(() => {
+    if (reduce) return;
+    setPulse(window.matchMedia("(hover: hover) and (pointer: fine)").matches);
+  }, [reduce]);
 
   return (
     <section className="relative flex min-h-[85svh] items-center overflow-hidden border-t border-line">
@@ -23,13 +30,17 @@ export function StartProject() {
         />
         <div className="absolute inset-0 bg-gradient-to-b from-void via-void/60 to-void" />
         <div className="grid-lines absolute inset-0 opacity-30" />
+        {/* Same reasoning as the hero bloom: gradient, not blur().
+            The slow pulse is a permanently-running compositor animation, so
+            it is limited to pointer devices — on mobile it burned frames and
+            battery for an effect nobody notices behind the headline. */}
         <motion.div
-          className="absolute left-1/2 top-1/2 h-[46rem] w-[46rem] -translate-x-1/2 -translate-y-1/2 rounded-full blur-[130px]"
+          className="absolute left-1/2 top-1/2 h-[28rem] w-[28rem] -translate-x-1/2 -translate-y-1/2 rounded-full md:h-[46rem] md:w-[46rem]"
           style={{
             background:
-              "radial-gradient(circle, rgba(77,124,254,0.20), rgba(139,92,246,0.12) 45%, transparent 70%)",
+              "radial-gradient(circle, rgba(77,124,254,0.18) 0%, rgba(110,105,250,0.12) 32%, rgba(139,92,246,0.07) 56%, transparent 78%)",
           }}
-          animate={reduce ? {} : { scale: [1, 1.12, 1], opacity: [0.7, 1, 0.7] }}
+          animate={pulse ? { scale: [1, 1.12, 1], opacity: [0.7, 1, 0.7] } : undefined}
           transition={{ duration: 9, repeat: Infinity, ease: "easeInOut" }}
         />
       </div>

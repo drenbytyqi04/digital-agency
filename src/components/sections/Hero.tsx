@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { motion, useScroll, useTransform, useReducedMotion, useMotionValue, useSpring } from "framer-motion";
 import { site } from "@/config/site";
 import { motionTokens } from "@/lib/utils";
@@ -23,8 +23,23 @@ export function Hero() {
   const reduce = useReducedMotion();
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end start"] });
 
-  const yContent = useTransform(scrollYProgress, [0, 1], ["0%", reduce ? "0%" : "22%"]);
-  const opacity = useTransform(scrollYProgress, [0, 0.75], [1, reduce ? 1 : 0]);
+  /**
+   * Scroll-linked parallax runs on pointer devices only. On a phone it
+   * re-lays the hero on every scroll frame during the exact moment the
+   * page is busiest, and the effect is barely perceptible on a small
+   * viewport — cost with no payoff.
+   */
+  const [parallax, setParallax] = useState(false);
+  useEffect(() => {
+    if (reduce) return;
+    setParallax(
+      window.matchMedia("(hover: hover)").matches &&
+        window.matchMedia("(pointer: fine)").matches
+    );
+  }, [reduce]);
+
+  const yContent = useTransform(scrollYProgress, [0, 1], ["0%", parallax ? "22%" : "0%"]);
+  const opacity = useTransform(scrollYProgress, [0, 0.75], [1, parallax ? 0 : 1]);
 
   const mx = useMotionValue(0);
   const my = useMotionValue(0);
@@ -59,12 +74,19 @@ export function Hero() {
         <div className="absolute inset-0 bg-gradient-to-b from-void/75 via-void/45 to-void" />
         <motion.div className="grid-lines absolute inset-0 opacity-[0.55]" style={{ x: px, y: py }} />
         <div className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-void to-transparent" />
+        {/* Accent bloom.
+            No blur() filter here. The radial gradient is already soft, so a
+            120px blur on a 600px layer bought almost nothing visually while
+            costing a very large offscreen buffer to composite — one of the
+            heaviest paints on the page, and it was repainting on every
+            scroll frame on mobile. The gradient stops do the softening. */}
         <motion.div
-          className="absolute -right-40 top-1/4 h-[38rem] w-[38rem] rounded-full opacity-40 blur-[120px]"
+          className="absolute -right-40 top-1/4 h-[26rem] w-[26rem] rounded-full opacity-50 md:h-[38rem] md:w-[38rem]"
           style={{
             x: px,
             y: py,
-            background: "radial-gradient(circle, rgba(77,124,254,0.30), rgba(139,92,246,0.14) 45%, transparent 70%)",
+            background:
+              "radial-gradient(circle, rgba(77,124,254,0.26) 0%, rgba(99,110,250,0.16) 30%, rgba(139,92,246,0.08) 55%, transparent 78%)",
           }}
         />
       </div>
@@ -157,7 +179,7 @@ export function Hero() {
               neutralised by the prefers-reduced-motion rule instead. */}
           <motion.span
             data-reveal
-            className="accent-gradient absolute inset-y-0 left-0 w-1/2 motion-reduce:hidden"
+            className="accent-gradient absolute inset-y-0 left-0 hidden w-1/2 motion-reduce:hidden md:block"
             animate={reduce ? undefined : { x: ["-100%", "200%"] }}
             transition={{ duration: 2.2, repeat: Infinity, ease: "easeInOut" }}
           />
