@@ -25,7 +25,7 @@ export function Footer() {
               Navigate
             </h2>
             <ul className="flex flex-col gap-3">
-              {[{ label: "Home", href: "/" }, ...site.nav, site.cta.primary].map((item) => (
+              {[...site.nav, site.cta.primary].map((item) => (
                 <li key={item.href}>
                   <Link
                     href={item.href}
